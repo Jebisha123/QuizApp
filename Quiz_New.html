@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(221, 229, 214);
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+        .quizBox{
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px rgb(244, 244, 235);
+            width:600px;
+            overflow: hidden;
+            
+
+        }
+        .quizHeader
+        {
+            padding: 4rem;
+        }
+        h2
+        {
+            padding: 2rem;
+            text-align: center;
+            margin: 0;
+        }
+        ul
+        {
+            list-style: none;
+            padding: 0;
+        }
+        ul li{
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        button
+        {background-color: rgb(68, 7, 117);
+            border: none;
+            display: block;
+            width:100%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 1.3rem;
+            color: white;
+
+        }
+        button:hover{
+            background-color: rgb(45, 2, 80);
+        }
+        button:focus{
+            outline: none;
+            background-color: rgb(49, 2, 85);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quizBox" id="main">
+        <div class="quizHeader" >
+            <h2 id="question">Question text</h2>
+            <ul>
+                <li>
+                    <input type="radio" id="a" class="radioanswer" >
+                    <label  id="radioOne">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" id="b" class="radioanswer">
+                    <label  id="radioTwo">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" id="c" class="radioanswer">
+                    <label  id="radioThree">Answer</label>
+                </li>
+                <li>
+                    <input type="radio"  id="d" class="radioanswer">
+                    <label  id="radioFour">Answer</label>
+                </li> 
+
+            </ul>
+        </div>
+        <button id="quizbtn">Submit</button>
+    </div>
+    <script>
+        // Creating an array of Questions
+
+        var quizList=[
+            {
+                question:"What year was javascript launched?",
+                one:"1994",
+                two:"1995",
+                three:"1996",
+                four:"1993",
+               Answer :"b"
+            },
+            {
+                question:"What is the DOM structure of JS ?",
+                one:"map",
+                two:"stack",
+                three:"queue",
+                four:"tree",
+                Answer:"d"
+            },
+            {
+                question:"Which language runs in browser ?",
+                one:"python",
+                two:"java",
+                three:"oracle",
+                four:"javaScript",
+                Answer:"d"
+
+            },
+            {
+                question:"What does CSS stands for ?",
+                one:"Cascading style Sheet",
+                two:"Cascading Objects",
+                three:"Cascading simple sheets",
+                four:"cascading tags",
+                Answer:"a"
+            },
+            {
+                question:"What does Html stands for ?",
+                one:"Hyperloop machine language",
+                two:"Hyper Objects",
+                three:"Hyper tag sheets",
+                four:"HyperText MarkUp Language",
+                Answer:"d"
+            }
+        ];
+        // Selecting the DOM elements
+
+        const main = document.getElementById('main')
+        const radioElement = document.querySelectorAll('.radioanswer')
+        const questionE1 = document.getElementById('question')
+        const firstAnswer = document.getElementById('radioOne')
+        const secondAnswer = document.getElementById('radioTwo')
+        const thirdAnswer = document.getElementById('radioThree')
+        const fourthAnswer = document.getElementById('radioFour')
+        const quizBtn = document.getElementById('quizbtn')
+        
+        // Set the initial values
+        let initialQuizListValue = 0
+        let point = 0
+
+        // To display in the content
+        displayQuiz()
+
+        function displayQuiz()
+        {
+    
+            radioElement.forEach(answerE1 => answerE1.checked = false)
+            const initialQuizList=quizList[initialQuizListValue]
+            questionE1.innerText=initialQuizList.question
+            firstAnswer.innerText=initialQuizList.one
+            secondAnswer.innerText=initialQuizList.two
+            thirdAnswer.innerText=initialQuizList.three
+            fourthAnswer.innerText=initialQuizList.four
+
+        }
+       
+        function checkedValue()
+        {
+             let value
+             radioElement.forEach(item =>{
+                if(item.checked){
+                    value=item.id
+                    
+                }
+            
+            })
+            return value
+        }
+        quizBtn.addEventListener('click',() =>
+        {
+            const checkedvalue = checkedValue()
+            if(checkedvalue){
+            if(checkedvalue === quizList[initialQuizListValue].Answer){
+                point++
+                console.log(point)
+                
+            }
+            initialQuizListValue++
+            if(initialQuizListValue < quizList.length)
+            {
+                displayQuiz()
+            }else{
+                main.innerHTML= "<h2>You answered  "+point+"/5 Questions<h2>"
+          var var1 =   document.createElement("button");
+           
+                main.append(var1)
+                var1.textContent="RELOAD"
+            
+            var1.addEventListener('click',() => {location.reload()})
+            
+            }
+        }
+        })
+    </script>
+</body>
+</html>
+
+
+      
